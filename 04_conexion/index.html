@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!--
+	Propiedades
+
+connection.type
+
+Dentro de esta propiedad podremos tener las siguientes constantes:
+
+
+Connection.UNKNOWN
+	Conexión desconocida
+
+Connection.ETHERNET
+	Conectado por ethernet
+
+Connection.WIFI
+	Conectado por WiFi
+
+Connection.CELL_2G
+	Conectado por 2G
+
+Connection.CELL_3G
+	Conectado por 3G
+
+Connection.CELL_4G
+	Conectado por 4G
+
+Connection.NONE
+	Sin conexión
+
+Ejemplo:
+function checkConnection() {
+    var networkState = navigator.network.connection_type;
+    var states = {};
+    states[Connection.UNKNOWN]  = 'Unknown connection';
+    states[Connection.ETHERNET] = 'Ethernet connection';
+    states[Connection.WIFI]     = 'WiFi connection';
+    states[Connection.CELL_2G]  = 'Cell 2G connection';
+    states[Connection.CELL_3G]  = 'Cell 3G connection';
+    states[Connection.CELL_4G]  = 'Cell 4G connection';
+    states[Connection.NONE]    = 'No network connection';
+    alert('Connection type: ' + states[networkState]);
+}
+checkConnection();
+-->
+</body>
+</html>

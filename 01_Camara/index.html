@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!--
+	Métodos
+	
+getPicture(funcSuccess, funcError, options)
+
+		Accede a la cámara para coger una foto, o al álbum para seleccionarla. 
+
+		En la función de éxito llevará un parámetro tipo cadena de texto,  con la fotografía codificada en base64, o bien una cadena de caracteres con la URI de acceso al sistema de almacenamiento del dispositivo.
+
+Argumentos
+options
+
+quality:	Calidad de la imagen guardada. El rango es [0, 100]
+
+destinationType:
+			Elige el formato del valor de retorno, definido en navigator.cameraDestinationType
+			Camera.DestinationType = {
+			    DATA_URL : 0,   // Devuelve la imagen como una cadena codificada en base64
+			    FILE_URI : 1    // Devuelve la URI del fichero de imagen
+			};
+
+sourceType:
+			Establece la fuente de la imagen. Definido en navigator.camera.PictureSourceType
+			Camera.PictureSourceType = {
+			    PHOTOLIBRARY : 0,
+			    CAMERA : 1,
+			    SAVEDPHOTOALBUM : 2
+			};
+
+allowEdit:
+		Permite la edicion simple de la imagen antes de la selección.
+
+EncodingType:
+		Tipo de codificacion de la imagen devuelta. Definido en navigator.cameraEndodingType (JPEG o PNG)
+		    Camera.EncodingType = {
+		        JPEG : 0,               
+		        PNG : 1                 
+		    };
+
+targetWidth: 
+		Ancho en pixeles para escalar la imagen. Debe ser usada con targetHeight. El ratio de tamaño es mantenido
+targetHeight:
+		Altura en píxeles para escalar la imagen. Debe ser usada con targetWidth. El ratio de tamaño es mantenido.
+
+MediaType: 
+		Establece el tipo de medio a seleccionar. 
+		Solo funciona cuando PictureSourceType es PHOTOLIBRARY o SAVEDPHOTOALBUM. 
+		Definido en navigator.camera.MediaType
+		
+
+	navigator.camera.getPicture(onSuccess, onFail, { quality: 50 }); 
+	function onSuccess(imageData) {
+	    var image = document.getElementById('myImage');
+	    image.src = "data:image/jpeg;base64," + imageData;
+	}
+	function onFail(message) {
+	    alert('Failed because: ' + message);
+	}
+-->
+</body>
+</html>

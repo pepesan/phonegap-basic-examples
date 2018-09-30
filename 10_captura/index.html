@@ -1,0 +1,133 @@
+<!--
+Captura
+
+Se puede acceder al objeto capture desde navigator.device.capture
+
+Propiedades.
+
+	supportedAudioModes: Los formatos de grabación de audio soportados por el dispositivo.
+	supportedImageModes: Los formatos y tamaños de grabación de imagenes soportados por el dispositivo
+	supportedVideoModes: Resolucion de video y formatos de grabación soportados por el dispositivo.
+	
+Métodos
+	capture.captureAudio(funcionExito, funcionError, opcionesAudio)
+	
+	Esta función lanza la aplicación para grabar clips de audio. 
+	El metodo comienza una operación asincrona utilizando la aplicación 
+	por defecto de captura de audio. 
+	Esta operación permite capturar multiples grabaciones 
+	(tantas como especificadas en las opciones de audio, si no se pasa parametro por defecto es 1.
+	
+La función de éxito contiene un array de objetos MediaFile(), 
+	cada objeto media file se compone de lo siguiente:
+	
+	name: El nombre del fichero sin información sobre la ruta.
+	fullPath: La ruta completa del fichero incluyendo el nombre
+	type: El tipo MIME
+	lastModifiedDate: La fecha y hora en la que fue modificado por última vez
+	size: El tamaño del fichero en bytes
+
+	getFormatData(funcExito, funError) 
+		Método que devuelve, en la funcion de Exito 
+		información sobre el fichero de medios Contiene la siguiente información:
+		codecs:El formato actual del contenido de video y audio
+		bitrate:La media de tasa de bits del contenido, en caso de una imagen tiene valor 0
+		height:La altura de la imagen o del video en píxeles. 
+				En caso de ficheros de sonido, el atributo tiene valor 0
+		width:La anchura de la imagen o del video en píxeles. 
+				En caso de ficheros de sonido, el atributo tiene valor 0
+		duration: La duración del audio o del video en píxeles. 
+				En caso de imagenes, el atributo tiene valor 0
+
+Opciones de audio
+	limit:	El número máixmo de clips de auido que el usuario 
+			puede grabar en una sola operación de captura. 
+			Debe ser un valor igual o mayor a 1.
+	
+	duration: La máxima duración de un fichero de sonido en segundos.
+	
+	mode: El modo de audio seleccionado. 
+			Debe ser uno de los valores que estén en capture.supportedAudioModes.
+	
+	capture.captureImage(funExito, funError, opcionesImagen)
+			Este método comienza una operación asincrona de captura de 
+			imagenes. Permite capturar tantas imagenes como se especifique en las opciones.
+	Funciona exactamente igual que captureAudio en la funcion de éxito.
+	Opciones de captura de imagenes
+	limit: Numero máximo de imagenes a capturar en cada operación de captura. El valor debe ser igual o mayor que 1
+	mode: El modo de imagen seleccionado. El valor debe coincidir con uno de los elementos en capture.supportedImageModes
+
+
+capture.captureVideo(funcionExito, funcionError, opcionesVideo)
+		Comienza una operación asincrona de grabado de video, 
+		al igual que en audio o imágen permite guardar multiples 
+		grabaciones en una sola sesión. (tantas como se especifiquen en las opciones).
+
+		La función de éxito funciona igual que en imagen y audio.
+
+Opciones de captura de video:
+		limit: Numero máximo de videos a capturar en cada operación de captura. El valor debe ser igual o mayor que 1
+		duration: Máxima duración de los ficheros de video, en segundos.
+		mode: El modo de video seleccionado. El valor debe coincidir con uno de los elementos en capture.supportedImageModes
+
+Errores
+	Las funciones de captura de errores recibiran un objeto con la propiedad “code” que tendrá uno de estos valores
+	CaptureError.CAPTURE_INTERNAL_ERR: La camara o el microfono fallaron al capturar imagen o sonido
+	CaptureError.CAPTURE_APPLICATION_BUSY:La aplicación de camara o audio está sirviendo actualmente otra petición de captura
+	CaptureError.CAPTURE_INVALID_ARGUMENT: Uso inválido del API (por ejemplo, el parametro limit tiene un valor inferior a 1).
+	CaptureError.CAPTURE_NO_MEDIA_FILES: El usuario salió de la aplicación de captura antes de capturar nada.
+	CaptureError.CAPTURE_NOT_SUPPORTED: La operación de captura solicitada no está soportada.
+
+Ejemplo:
+En este ejemplo utilizamos la captura de video y mandamos los ficheros capturados a un servidor en php:
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Captura de Video</title>
+    <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+    <script type="text/javascript" charset="utf-8" src="json2.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    // Llamada cuando la operación de captura ha finalizado
+    //
+    function captureSuccess(mediaFiles) {
+        var i, len;
+        for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+            uploadFile(mediaFiles[i]);
+        }       
+    }
+    // Llamada si hay algun error
+    // 
+    function captureError(error) {
+        var msg = 'An error occurred during capture: ' + error.code;
+        navigator.notification.alert(msg, null, 'Uh oh!');
+    }
+    // Un boton llamara a esta funcion
+    //
+    function captureVideo() {
+        // Lanza la aplicación de grabación de video
+        // permitiendo capturar al usuario 2 videoclips
+        navigator.device.capture.captureVideo(captureSuccess, captureError, {limit: 2});
+    }
+    // Subimos los ficheros al servidor
+    function uploadFile(mediaFile) {
+        var ft = new FileTransfer(),
+            path = mediaFile.fullPath,
+            name = mediaFile.name;
+        ft.upload(path,
+            "http://my.domain.com/upload.php",
+            function(result) {
+                console.log('Upload success: ' + result.responseCode);
+                console.log(result.bytesSent + ' bytes sent');
+            },
+            function(error) {
+                console.log('Error uploading file ' + path + ': ' + error.code);
+            },
+            { fileName: name });   
+    }
+    </script>
+    </head>
+    <body>
+        <button onclick="captureVideo();">Capturar video</button> <br>
+    </body>
+</html>

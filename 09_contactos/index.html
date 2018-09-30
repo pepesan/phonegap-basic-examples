@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html>
+	<!--
+Acceso a traves de 
+
+contacts.create(propiedades)
+	create, es un método síncrono que devuelve un objeto de 
+	tipo Contact. Este contacto no es almacenado en la 
+	libreta de contactos del dispositivo hasta que se llama al metodo 
+	.save(funExito, funError)
+<script>
+var myContact = navigator.contacts.create({"displayName": "Test User"});
+</script>
+
+
+navigator.contacts.find(contactFields, funExito, funError, opcinesBusqueda);
+	Busca los contactos del usuario, 
+	como resultado en la funcion callback de éxito se 
+	dispondra de 1 o varios objetos Contact que tendrá tantos 
+	campos como se especifique en el parámetro contactFields. 
+	Si no se especifica ningún campo, se devolveran los objetos 
+	Contact sólo con la propiedad id, mientras si se manda con 
+	[“*”] devolverá todo.
+	
+<script>
+	
+function onSuccess(contacts) {
+    alert('Found ' + contacts.length + ' contacts.');
+};
+function onError(contactError) {
+    alert('onError!');
+};
+
+// find all contacts with 'Bob' in any name field
+var options = new ContactFindOptions();
+
+options.filter="Bob";
+ 
+var fields = ["displayName", "name"];
+navigator.contacts.find(fields, onSuccess, onError, options);
+
+</script>
+
+Campos del objeto Contact
+
+	Estos campos son los que dispone el objeto contact y 
+	que además son los que se pueden pasar a find() 
+	(en forma de array) para buscar contactos en la libreta.
+
+	Id: 		Un identificador único
+	
+	displayName: El nombre del contacto para mostrar a los usuarios finales
+	
+	name: Un objeto que contiene todos los componentes del 
+			nombre de una persona (Objeto ContactName)
+	
+	nickname: Un nombre casual para referirse al contacto
+	
+	phoneNumbers: Un array con los numeros 
+				de telefono del contacto (ObjetoContactField)
+	
+	emails: Un array con las direcciones 
+				email del contacto (Objeto ContactField[])
+	
+	addresses: Un array con todas las 
+			direcciones del contacto (ObjetoContactAdresses[])
+	
+	ims: Un array con todas las 
+			direcciones de “Instant Messaging” del usuario (Objeto ContactField[])
+	
+	organizations: Un array con todas las 
+			organizaciones del contacto (Objeto ContactOrganization[])
+			
+	birthday: El cumpleaños del contacto
+	
+	note: Una nota sobre el contacto
+	
+	photos: Un array con fotos del contacto
+	
+	categories: Un array con todas las categorias a 
+			las que pertenece el contacto (Objeto ContactField)
+	
+	urls: Un array con webs asociadas al contacto (ContactField)
+	
+Metodos del objeto Contact
+	clone() crea una copia profunda del contacto en 
+			cuestión y deja su id como null
+
+	remove(funExito, funError) Borra el contacto 
+			de la libreta de direcciones
+
+	save(funExito, funError) guarda el contacto en 
+			la libreta de direcciones. Lo crea si su id no existe, 
+			y lo borra en caso contrario.
+Ejemplo-->
+<!DOCTYPE html>
+<html>
+<head>
+<title>Contact Example</title>
+<script type="text/javascript" charset="utf-8" src="js/cordova-1.5.0.js"></script>
+<script type="text/javascript" charset="utf-8">
+window.addEventListener("load", function(){
+	console.log("entra aqui");
+	document.addEventListener("deviceready", onDeviceReady, false);
+}, false);
+//document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+console.log("entra aqui2");
+//create
+var contact = navigator.contacts.create();
+contact.displayName = "Plumber";
+contact.nickname = "Plumber"; //specify both to support all devices
+var name = new ContactName();
+name.givenName = "Jane";
+name.familyName = "Doe";
+contact.name= name;
+//save
+contact.save(onSaveSuccess,onSaveError);
+//clone
+var clone = contact.clone();
+clone.name.givenName = "John";
+console.log("Original contact name = " + contact.name.givenName);
+console.log("Cloned contact name = " + clone.name.givenName); 
+//remove
+//contact.remove(onRemoveSuccess,onRemoveError);
+}
+
+function onSaveSuccess(contact) {
+alert("Save Success");
+}
+
+function onSaveError(contactError) {
+alert("Error = " + contactError.code);
+}
+
+function onRemoveSuccess(contacts) {
+alert("Removal Success");
+}
+
+function onRemoveError(contactError) {
+alert("Error = " + contactError.code);
+}
+</script>
+</head>
+<body>
+<h1>Example 2</h1>
+<p>Find Contacts</p>
+</body>
+</html>

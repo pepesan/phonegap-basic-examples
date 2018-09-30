@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Web Storage</title>
+<link rel="stylesheet" href="css/storage.css">
+<script src="js/storage.js"></script>
+</head>
+<body>
+	<section id="cajaformulario">
+		<form name="formulario">
+			<p>Clave: <br> <input type="text" name="clave" id="clave"></p>
+			<p>Valor: <br> <textarea id="texto" name="texto"></textarea></p>
+			<p><input type="button" name="grabar" id="grabar" value="Grabar"></p>
+		</form>
+	</section>
+	<section id="cajadatos">
+		No hay info disponible
+	</section>
+</body>
+<!--
+	sessionStorage. o localStorage
+	
+	ojo SOLO admite cadenas. Si queremos usar json tendremos que utilizar los metodos:
+	cadena = JSON.stringify(objeto) -> para convertirlo a cadena.
+	objeto = JSON.parse(cadena) -> para convertirlo a objeto. 
+	
+	setItem(clave, valor)
+		establece un nuevo dato con el par clave, valor
+	getItem(clave)
+		se obtiene el valor del dato con clave "clave"
+	removeItem(clave)
+		elimina el objeto con la clave indicada
+	clear()
+		elimina todos los objetos
+	length
+		devuelve el numero de items guardados.
+	key(índice)
+		devuelve la clave del objeto que se encuentre en el índice indicado. (como los arrays, empieza en 0)
+	
+	
+-->
+</html>

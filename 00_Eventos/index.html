@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Eventos </title>
+</head>
+<body>
+<!--
+deviceready    El evento más importante de PhoneGap, nos indica 
+			cuando esta listo el dispositivo para poder funcionar con él.
+			Se enlaza a través de document con 
+			document.addEventListener(“deviceready”, callbackFunc, false);
+
+pause		Este evento salta cuando la aplicación está puesta 
+			en un segundo plano. Se enlaza a través de 
+			document y es necesario hacerlo dentro del evento deviceready
+
+resume		Evento que salta tras haber estado en estado de 
+			pausa y volver a la aplicación, tambien se enlaza 
+			a través de document y es necesario hacerlo dentro del evento deviceready.
+
+online		Lanzado cuando la aplicación está conectada a 
+			internet. Enlazada a traves de document y dentro de deviceready.
+
+Offline		cuando la aplicación se desconecta de internet. 
+			Enlazada a traves de document y dentro de deviceready.
+
+Backbutton	Cuando se pulsa el botón de retroceso.
+			Enlazada a traves de document y dentro de deviceready.
+
+Batterycritical, batterylow batterystatus
+			Lanzadas cuando hay cambios en la batería. 
+			En concreto critical y low cuando se ha llegado a unos 
+			mínimos de bateria, y batterystatus cada vez que hay 
+			un cambio en el porcentaje de batería. 
+			Dentro del evento se puede acceder a las siguientes propiedades:
+				level: con un numero entre 0 y 100 con el porcentaje de bateria restante.
+				isPlugged: un valor booleano que nos indica si el dispositivo está enchufada o no.
+			
+			En este caso se enlaza a través de window y se 
+				suele hacer despues del deviceready
+
+menubutton, searchbutton, startcallbutton, 
+endcallbutton, volumedownbutton, volumeupbutton
+			El evento se lanza tras pulsar los botones de menú, 
+			busqueda, inicio de llamada, fin de llamada, 
+			bajar volumen y subir volumen respectivamente. 
+			Solo hay que tener en cuenta que no todos 
+			los dispositivos tienen estos botones.
+			Se enlazan a través de document,y se suele 
+			hacer dentro del evento deviceready
+
+Ejemplo:
+<html>
+  <head>
+    <title>PhoneGap Volume Up Button Example</title>
+    <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    // Call onDeviceReady when PhoneGap is loaded.
+    //
+    // At this point, the document has loaded but phonegap.js has not.
+    // When PhoneGap is loaded and talking with the native device,
+    // it will call the event deviceready.
+    //
+    function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
+    // PhoneGap is loaded and it is now safe to make calls PhoneGap methods
+    //
+    function onDeviceReady() {
+        // Register the event listener
+        document.addEventListener("volumeupbutton", onVolumeUpKeyDown, false);
+    }
+    // Handle the volume up button
+    //
+    function onVolumeUpKeyDown() {
+    }
+    </script>
+  </head>
+  <body onload="onLoad()">
+  </body>
+</html>
+-->
+</body>
+</html>

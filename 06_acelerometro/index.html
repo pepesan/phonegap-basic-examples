@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!--
+	
+El acceso es a traves del objeto: navigator.accelererometer
+
+Métodos
+
+accelerometer.getCurrentAcceleration(functionExito, funcionError)
+		Accede a la aceleración actual del dispositivo
+		
+accelerometer.watchAcceleration(funcionExito, funcionError, [opciones])
+		Accede a la aceleración del dispositivo. 
+		Es exactamente igual que getCurrentAcceleration con la salvedad 
+		de que la información es proporcionada cada determinado tiempo 
+		que se pasa a traves del parámetro de opciones. 
+		Devuelve un ID para poder detenerlo.
+
+accelerometer.clearWatch(watchID)
+		Detiene el proceso de watchAcceleration mediante el ID 
+		que éste devuelve.
+
+Argumentos
+
+	Opciones
+		Sólo se puede pasar la frecuencia como objeto javascript  y 
+		en milisegundos: {frecuency: 3000}
+
+Objeto de solo lectura en la funcion de exito
+
+Acceleration
+Tiene como propiedades:
+	acceleration.x que es la cantidad de movimiento del dispositivo 
+					en el eje X (rango [0,1])
+	acceleration.y que es la cantidad de movimiento del 
+					dispositivo en el eje Y (rango [0,1])
+	acceleration.z que es la cantidad de movimiento del dispositivo 
+					en el eje Z (rango [0,1])
+	acceleration.timestamp El timestamp en milisegundos.
+	Ejemplo:
+-->
+
+<script>
+	function onSuccess(acceleration) {
+	    alert('Acceleration X: ' + acceleration.x + '\n' +
+	          'Acceleration Y: ' + acceleration.y + '\n' +
+	          'Acceleration Z: ' + acceleration.z + '\n' +
+	          'Timestamp: '      + acceleration.timestamp + '\n');
+	};
+	function onError() {
+	    alert('onError!');
+	};
+	navigator.accelererometer.getCurrentAcceleration(onSuccess, onError);
+</script>
+
+</body>
+</html>

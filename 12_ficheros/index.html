@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!--
+	
+Acceso al sistema de ficheros:
+LocalFileSystem
+		Da acceso al sistema de ficheros, sus métodos estan definidos
+		dentro de window.
+		
+		window.requestFileSystem: Pide un sistema de ficheros
+		window.resolveLocalFileSystemURI: Obtiene un objeto DirectoryEntry o uno
+							File Entry usando una URI local
+							
+	
+
+	Constantes
+		LocalFileSystem.PERSISTENT: Usada para almacenamiento que no deberá ser
+							eliminado sin permiso del usuario o de la aplicación
+		LocalFileSystem.TEMPORARY: Usado para almacenamiento al que no se garantiza
+							la persistencia.
+							
+	
+	Al ejecutarse requestFileSystem se devuelve un objeto tipo FileSystem.
+		
+Objeto FileSystem,
+		Contiene información sobre el sistema de ficheros.
+		
+	FileSystem tiene las siguientes propiedades:
+
+			name: El nombre del sistema de ficheros
+			root: El directorio raíz del sistema de ficheros  (Objeto DirectoryEntry).
+			
+Objeto DirectoryEntry
+	Propiedades (definidas en la especificación de la W3C)
+
+		isFile: Siempre false
+		isDirectory: Siempre true
+		name: El nombre del directorio excluyendo la ruta hasta el
+		fullPath: La ruta absoluta desde la raiz al directorio
+		
+		NOTA: El siguiente atributo está definido en la especificación W3C pero no está soportado 
+			por phonegap
+	
+		filesystem: El sistema de ficheros en el que reside el DirectoryEntry
+
+	Metodos 
+
+	The following methods can be invoked on a DirectoryEntry object:
+
+		getMetadata(funExito, funError): Busca los metadatos acerca del directorio
+		moveTo(DirectoryEntry, nuevonombre, funExito, funError): Mueve un directorio a una localización diferente dentro del sistema de ficheros
+		copyTo(DirectoryEntry, nuevonombre, funExito, funError): Copia un directorio a una localización diferente dentro del sistema de ficheros
+		toURI(): Devuelve una URI que puede ser usada para localizar un directorio
+		remove(funExito, funError): Borra un directorio (debe estar vacío)
+		removeRecursively(funExito, funError): Borra un directorio y todos sus contenidos
+		getParent(funExito, funError): Busca el directorio padre
+		createReader(): Crea un objeto DirectoryReader que puede leer entradas de un directorio
+		getDirectory(path, opciones, funExito, funError): Crea o busca un directorio
+		getFile(path, opciones, funExito, funError): Crea o busca un fichero
+		 	
+Opciones en getDirectory y getFile
+	create: Usado para indicar si el fichero o el directorio debe ser creado si no existe
+	exclusive: Por si mismo exclusive no tiene efectos.
+			Usado con create, hará que la creación del fichero o directorio falle si el objetivo ya existe.
+			
+	Ejemplo:
+
+Objeto Metadata:
+	Al usar getMetadata() en la funcion de exito se devuelve un objeto Metadata con la siguiente propiedad
+	modificationTime: La fecha (Date) en la que fue modificado por ultimavez el fichero/directorio
+
+
+Objeto DirectoryReader
+		Creado al utilizar createReader dentro del objeto directory entry.
+		Sirve para leer los ficheros y directorios dentro de ese mismo directorio.
+		
+		Tiene el método:
+		
+		getEntries(funExito, funError). La funcion de exito recibe un listado
+			de FileEntry y DirectoryEntry
+		
+Objeto FileEntry:
+	    Es un objeto que se puede obtener a traves del DirectoryReader, es el objeto
+	    base para manejar los ficheros:
+	    
+	    Propiedades
+		isFile: Siempre true
+		isDirectory: Siempre False
+		name: El nombre del fichero excluyendo la ruta hasta el
+		fullPath: La ruta absoluta desde la raiz al fichero
+	    
+	    getMetadata(funExito, funError): Busca los metadatos acerca del fichero
+		moveTo(DirectoryEntry, nuevonombre, funExito, funError): Mueve un fichero a una localización diferente dentro del sistema de ficheros
+		copyTo(DirectoryEntry, nuevonombre, funExito, funError): Copia un fichero a una localización diferente dentro del sistema de ficheros
+		toURI(): Devuelve una URI que puede ser usada para localizar un fichero
+		remove(funExito, funError): Borra un fichero
+		getParent(funExito, funError): Busca el directorio padre
+		createWriter(): Crea un objeto FileWriter para escribir en ficheros
+		file(funExito, funError), crea un objeto file con las propiedades del objeto.
+	    
+	    
+Objeto File
+		Creado con FileEntry
+		Tiene las siguietnes propiedades
+		name: El nombre del fichero
+		fullPath: La ruta completa incluyendo el nombre
+		type: El tipo del fichero
+		lastModifiedDate: Fecha de la ultima modificacion
+		size: Tamaño en bytes
+
+FileReader
+		Objeto creado de la manera tradicional con javascript: new FileReader()
+		Permite leer ficheros de texto y ficheros codificados en base64.
+		Se suele utilizar dentro de la funcion de exito de FileEntry.file(funExito, funError)
+		
+		Tiene las siguientes propiedades
+		Properties 
+
+		readyState: Uno de los 3 estados en los que puede estar el lector EMPTY, LOADING o DONE.
+		result: El contenido del fichero que ha sido leido
+		error: Un objeto conteniendo errores
+		onloadstart: Llamado cuando empieza a leerse el fichero (funcion)
+		onprogress: Llamado cuando se está leyendo el fichero devuelve informes de progreso NO SOPORTADO POR PHONEGAP (progess.loaded/progress.total)
+		onload: Llamado cuando el proceso de lectura se ha completado
+		onabort: Llamado cuando el proceso de lectura se ha abortado
+		onerror: Llamado cuando la lectura ha fallado
+		onloadend: Llamado cuando la peticion ha finalizado (Tanto con exito o fallo)(Function)
+		
+		Metodos 
+
+		abort(): aborta la lectura del fichero
+		readAsDataURL(File): Lee el fichero y devuelve los datos como codificados en base64
+		readAsText(File, codificacion): Lee el fichero, la codificacion es opcional, por defecto (UTF-8)
+		
+		Su sintaxis es un poco más complicada
+		
+		objeto_file_entry.file(win, fail);
+		
+		function win(file) {
+		    var reader = new FileReader();
+		    reader.onloadend = function(evt) {
+		        console.log("read success");
+		        console.log(evt.target.result);
+		    };
+		    reader.readAsText(file);
+		};
+		
+		var fail = function(evt) {
+		    console.log(error.code);
+		};
+		
+		
+		
+Objeto FileWriter
+		Creado desde FileEntry.createWriter(funExito, funError).
+		Dentro de la funExito se recibe un parametro conteniendo el writer para el fichero
+		indicado.
+		
+		Propiedades
+		
+		readyState: El estado en el que e puede estar INIT, WRITING or DONE.
+		fileName: El nombre del fichero a escribir
+		length: La longitud del fichero a escribir
+		position: La posicion actual del puntero
+		error: Un objeto conteniendo errores
+		onwritestart: Llamado cuando empieza la escritura
+		onprogress: Llamado mientras se escribe el fichero, devuevle informes del progreso (NO SOPORTADO) (progess.loaded/progress.total)
+		onwrite: Llamado cuando se ha terminado correctamente la petición
+		onabort: Llamado cuando se ha abortado la petición
+		onerror: Llamado cuando la peticion ha fallado
+		onwriteend: Llamado cuando se ha completado la peticion, haya ido todo bien o no
+		
+		Metodos 
+		
+		abort():Aborta la escritura
+		seek(posicion): Mueve el puntero al byte especificado
+		truncate(cantidad): Acorta la longitud del fichero a la longitud especificada
+		write(texto): Escribe los datos en el fichero
+		
+		Ejemplo
+		objeto_file_entry.createWriter(win, fail);
+		
+		function win(writer) {
+		    writer.onwrite = function(evt) {
+		        console.log("write success");
+		    };
+		    writer.seek(writer.length);
+		    writer.write("appended text");
+		};
+		
+		var fail = function(evt) {
+		    console.log(error.code);
+		};
+		
+		
+
+	
+	
+Transferencia de ficheros:
+	
+FileTransfer
+	Objeto utilizado para subir o descargar ficheros desde un servidor:
+	
+	tiene los metodos 
+		upload(path, servidor, funExito, funError, opciones) 
+		download(Url_servidor, ruta_en_dispositivo, funExito, funError)
+
+Objeto FileUploadOptions
+	Se obtiene a traves de new FileUploadOptions();
+	fileKey: Nombre del elemento form, por defecto file
+	fileName: Nombre del fichero que que se pasará al servidor por defecto "image.jpg".
+	mimeType: Titpo mime del fichero, por defecto "image/jpeg". (DOMString)
+	params: Valores en pares (clave/valor) que hay que pasar a lo largo de la peticion HTTP
+	chunkedMode: Por si los datos se deberían subir de forma fragmentada via streaming. Por defecto true
+		
+Objeto FileUPloadResult
+	Es el tipo de objeto que se manda en la funExito al mandar datos, contiene los siguietnes
+	datos
+	bytesSent: bytes enviados
+	responseCode: Codigo de respuesta HTTP devuelto por el servidor (numero)
+	response: La respuesta (texto)
+		FileUploadResult
+	
+-->
+</body>
+</html>

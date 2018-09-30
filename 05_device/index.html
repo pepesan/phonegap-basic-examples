@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+<!--
+Se accede a través de window.device o simplemente device
+
+Tiene las siguientes propiedades
+
+name
+	Devuelve el nombre del modelo de dispositivo o producto. 
+	Puede variar bastante dependiendo del fabricante.
+	
+phonegap
+	Devuelve la versión de phonegap que está usando el dispositivo.
+
+platform
+	Devuelve al nombre del sistema operativo.
+
+uuid
+	Devuelve el identificador universalmente único. 
+	Los detalles de cómo se genera el UUID es determinado por el 
+	fabricante del dispositivo y es específico de la plataforma 
+	del dispositivo o el modelo.
+
+version
+	Devuelve la versión del sistema operativo.
+-->
+<div id="deviceProperties"></div>
+<script>
+var element = document.getElementById('deviceProperties');
+        element.innerHTML = 'Device Name: '     + device.name     + '<br />' + 
+                            'Device PhoneGap: ' + device.phonegap + '<br />' + 
+                            'Device Platform: ' + device.platform + '<br />' + 
+                            'Device UUID: '     + device.uuid     + '<br />' + 
+                            'Device Version: '  + device.version  + '<br />';
+</script>
+
+
+</body>
+</html>

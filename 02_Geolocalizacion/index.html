@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!--
+
+getCurrentPosition(func_ubicacion, func_error, config)
+
+
+func_ubicacion: 
+	funcion callback para recibir los datos de la posicion
+
+func_error: 
+	funcion callback para controlar errores
+
+config:
+	objeto javascript para configurar cómo se recibirá la información
+
+	enableHighAccuracy: booleano (false por defecto) que 
+			indica que queremos la mayor precisión posible. 
+			Activarlo hará que el dispositivo gaste más bateria.
+	timeout: tiempo maximo de espera para que la operación finalice.
+			 Si se alcanza el tiempo lanza error TIMEOUT.
+	maximumAge: Las ubicaciones son guardadas para obtener la 
+			información rápidamente.  Con este atributo decimos 
+			cuanto tiempo (en milisegundos) durará la información.		
+
+watchPosition(func_ubicacion, func_error, config)
+	funciona exactamente igual que getCurrentPosition pero añade un proceso de viginancia y se repetira la petición con la frecuencia marcada en la config (como si usaramos setInterval para llamar a getCurrentPosition)
+
+clearWatch(id)
+	Para detener la vigilancia de watchPosition. watchPosition devuelve un id que será el que usemos para detenerlo con clearWatch();
+
+Coordenadas.
+	Cuando el proceso de localización ha sido correcto, 
+	automáticamente se llamará a la función definida como 
+	callback contenidendo un objeto con las coordenadas.
+
+Dentro de este objeto podemos encontrar las siguientes propiedades.
+	latitude: Latitud en grados decimales
+	longitude: Longitud en grados decimales
+	altitude: Altitud en metros.
+	accuracy: Nivel de precision en metros sobre la 
+				información de la latitud y longitud.
+	altitudeAccuracy: Nivel de precisión en metros 
+				acerca de la altitud.
+	heading: Dirección de viaje, especificado en 
+			grados contando en dirección a las agujas del reloj 
+			teniendo como relativo al norte verdadero
+	speed: Actual velocidad de movimiento en tierra 
+			del dispositivo, especificado en metros por segundo.
+-->
+</body>
+</html>

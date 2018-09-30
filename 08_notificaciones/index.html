@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!--
+
+Acceso a traves de navigator.notification:
+
+
+notification.alert(message, alertCallback, [title], [buttonName])
+	Hace aparecer una notificación en pantalla.
+		Message: Texto del mensaje
+		alertCallback: Funcion a invocar cuando se cierra la alerta
+		title: Título de la pantalla de información, por defecto “Alert”
+		buttonName: Texto que aparece en el botón. Por defecto “OK”
+-->
+<script>
+/*
+function alertDismissed() {
+    // do something
+}
+navigator.notification.alert(
+    'You are the winner!',  // message
+    alertDismissed,         // callback
+    'Game Over',            // title
+    'Done'                  // buttonName
+);/*
+</script>
+<!--
+notification.confirm(message, alertCallback, [title], [buttonName])
+		Hace aparecer una notificación en pantalla dandole opciones 
+			al usuario para  que acepte o cancele la acción a realizar
+		Message: Texto del mensaje
+		alertCallback: Funcion a invocar cuando se cierra 
+				la ventana de confirmación devolviendo el 
+				valor del botón presionado.
+		title: Título de la pantalla de información, 
+				por defecto “Confirm”
+		buttonName: Texto que aparece en el botón. 
+				Por defecto “OK, Cancel”
+
+-->
+<script>
+		// process the confirmation dialog result
+		function onConfirm(button) {
+		    alert('You selected button ' + button);
+		}
+		// Show a custom confirmation dialog
+		//
+		function showConfirm() {
+		    navigator.notification.confirim(
+		        'You are the winner!',  // message
+		        onConfirm,              // callback to invoke with index of button pressed
+		        'Game Over',            // title
+		        'Restart,Exit'          // buttonLabels
+		    );
+</script>
+<!--
+	
+notification.beep(times)
+	Hace que el telefono reproduzca pequeño “bip”. El parametro son las veces que hay que repetirlo.
+
+-->
+
+<script>
+// Beep twice!
+//navigator.notification.beep(2);
+</script>
+<!--
+	
+	notification.vibrate(milisegundos)
+		Hace que el telefono vibre durante la cantidad de milisegundos especificada:
+-->
+<script>
+	// Vibra durante 2.5 segundos.
+	//
+	//navigator.notification.vibrate(2500);
+	
+</script>
+</body>
+</html>

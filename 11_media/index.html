@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!--
+El objeto Media provee la habilidad de grabar y reproducir ficheros de audio en un dispositivo.
+var media = new Media(src, mediaSuccess, [mediaError], [mediaStatus]);
+
+	Esta implementación no se corresponde a la especificación de la 
+	W3C para capturar audio, y de momento solo está para suplir la necesidad. 
+	En un futuro esta API se volverá obsoleta ya que se intentará utilizar 
+	la especificación de la W3C, por lo que no haremos mucho hincapié en esta API.
+	
+Parámetros
+	src: La uri con el contenido de audio
+	mediaSuccess: Función callback si todo va bien
+	mediaError: Funcion callback por si hay algun error
+	mediaStatus: Funcion callback que se llama cuando hay algun tipo de cambios de estado
+Parámetros adicionales de solo lectura.
+	_position: La posición en la que se está reproduciendo el audio en segundos. 
+	No se actualiza automáticamente durante la reproducción, 
+	se necesita llamar a getCurrentPosition para actualizarlo
+	_duration: La duración del medio en segundos
+
+Métodos
+	media.getCurrentPosition()
+			Devuelve la posicion actual en un fichero de audio
+				 // Audio player
+				    //
+				    var my_media = new Media(src, onSuccess, onError);
+				    // Update media position every second
+				    var mediaTimer = setInterval(function() {
+				        // get media position
+				        my_media.getCurrentPosition(
+				            // success callback
+				            function(position) {
+				                if (position > -1) {
+				                    console.log((position) + " sec");
+				                }
+				            },
+				            // error callback
+				            function(e) {
+				                console.log("Error getting pos=" + e);
+				            }
+				        );
+				    }, 1000);
+
+	media.getDuration()
+		Devuelve la duración de un fichero de audio
+		    // Audio player
+		    //
+		    var my_media = new Media(src, onSuccess, onError);
+		    // Get duration
+		    var counter = 0;
+		    var timerDur = setInterval(function() {
+		        counter = counter + 100;
+		        if (counter > 2000) {
+		            clearInterval(timerDur);
+		        }
+		        var dur = my_media.getDuration();
+		        if (dur > 0) {
+		            clearInterval(timerDur);
+		            document.getElementById('audio_duration').innerHTML = (dur) + " sec";
+		        }
+	   }, 100);
+
+	media.play()
+		Empieza o reanuda la reproducción de un fichero de audio
+		
+			// Play audio
+			//
+			function playAudio(url) {
+			    // Play the audio file at url
+			    var my_media = new Media(url,
+			        // success callback
+			        function() {
+			            console.log("playAudio():Audio Success");
+			        },
+			        // error callback
+			        function(err) {
+			            console.log("playAudio():Audio Error: "+err);
+			    });
+			    // Play audio
+			    my_media.play();
+	
+	media.pause
+		Pausa la reproducción de un fichero de audio
+		// Play audio
+		//
+		function playAudio(url) {
+		    // Play the audio file at url
+		    var my_media = new Media(url,
+		        // success callback
+		        function() {
+		            console.log("playAudio():Audio Success");
+		        },
+		        // error callback
+		        function(err) {
+		            console.log("playAudio():Audio Error: "+err);
+		    });
+		    // Play audio
+		    my_media.play();
+		    // Pause after 10 seconds
+		    setTimeout(function() {
+		        media.pause();
+		    }, 10000);        
+		}
+
+	media.release
+		Libera los recursos de audio del Sistema operativo para cuando no se necesita reproducir mas sonido.
+		
+		    // Audio player
+		    //
+		    var my_media = new Media(src, onSuccess, onError);
+		    my_media.play();
+		    my_media.stop();
+		    my_media.release();
+		media.seekTo
+		Mueve la posicion dentro dentro de un fichero de audio
+		    // Audio player
+		    //
+		    var my_media = new Media(src, onSuccess, onError);
+		    my_media.play();
+		    // SeekTo to 10 seconds after 5 seconds
+		    setTimeout(function() {
+		        my_media.seekTo(10000);
+		    }, 5000);
+	
+	
+	media.startRecord()
+	
+	Empieza la grabación de un fichero de audio
+	
+	// Record audio
+	// 
+	function recordAudio() {
+	    var src = "myrecording.mp3";
+	    var mediaRec = new Media(src,
+	        // success callback
+	        function() {
+	            console.log("recordAudio():Audio Success");
+	        },
+	        // error callback
+	        function(err) {
+	            console.log("recordAudio():Audio Error: "+ err.code);
+	        });
+	    // Record audio
+	    mediaRec.startRecord();
+
+
+	media.stopRecord
+		Para la grabación de un fichero de audio
+		// Record audio
+		// 
+		function recordAudio() {
+		    var src = "myrecording.mp3";
+		    var mediaRec = new Media(src,
+		        // success callback
+		        function() {
+		            console.log("recordAudio():Audio Success");
+		        },
+		        // error callback
+		        function(err) {
+		            console.log("recordAudio():Audio Error: "+ err.code);
+		        });
+		    // Record audio
+		    mediaRec.startRecord();
+		    // Stop recording after 10 seconds
+		    setTimeout(function() {
+		        mediaRec.stopRecord();
+		    }, 10000);
+		}
+
+media.stop
+	Para la reproduccion de un fichero de audio
+	// Play audio
+	//
+	function playAudio(url) {
+	    // Play the audio file at url
+	    var my_media = new Media(url,
+	        // success callback
+	        function() {
+	            console.log("playAudio():Audio Success");
+	        },
+	        // error callback
+	        function(err) {
+	            console.log("playAudio():Audio Error: "+err);
+	    });
+	    // Play audio
+	    my_media.play();
+	    // Pause after 10 seconds
+	    setTimeout(function() {
+	        my_media.stop();
+	    }, 10000);        
+-->
+
+</body>
+</html>

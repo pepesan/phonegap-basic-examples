@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!--
+	
+	acceso a traves de navigator.compass
+	
+compass.getCurrentHeading(funExito, funError, opciones)
+
+		Este método en el callback de funExito nos dá la 
+		dirección a la que está apuntando la brújula.
+		
+compass.watchHeading(funExito, funError, opciones)
+	Este método en el callback de funExito nos dá la dirección a la que está 
+	apuntando la brújula. La diferencia con getCurrentHeading es que 
+	el proceso se repite automáticamente cada cierto tiempo. 
+	Devuevle un ID para poder parar el proceso mediante clearWatch
+	
+compass.clearWatch(watchID)
+	Para un proceso watchHeading utilizando el ID devuelto 
+	por esta función para poder identificar el proceso.
+	
+compass.watchHeadingFilter(funExito, funError, opciones)
+	Funciona exáctamente igual que watchHeading, con la salvedad 
+	que solo saltara cuando haya una desviación de tantos grados (o más),
+	como se indiquen en las opciones
+	
+compass.clearWatchFilter(watchFilterID)
+	Para un proceso watchHeadingFilter utilizando el ID 
+	devuelto por esta función para poder identificar el proceso.
+
+Argumentos
+	funExito
+	Esta función es llamada en caso de éxito. Como parametor tiene 
+	un objeto compassHeading con las siguientes características.
+		magneticHeading: La dirección en grados de 0 a 359.99 en ese momento.
+		
+		trueHeading: La dirección relativa al polo norte geográfico, 
+			en grados de 0 a 359.99 en ese momento. 
+			Un valor negativo indica que trueHeading no 
+			ha posido ser determinado
+
+		headingAccuracy: La desviación en grados entre 
+			la dirección reportada y trueHeading
+
+		timestamp: La hora en milisegundos en la que 
+		fue determinada la dirección
+
+	funError
+		función llamada en caso de error, recibe un objeto de 
+		tipo CompassError con el atributo “code” donde viene el error producido.
+
+Opciones
+		frequency: Número en milisegundos que indica la frecuencia 
+		a refrescar la dirección. Por defecto 100
+		
+		filter: El cambio en grados requerido para iniciar 
+		watchHeadingFilter.
+-->
+</body>
+</html>
